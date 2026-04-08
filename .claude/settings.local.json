@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(where chrome:*)",
+      "Bash(where chromium:*)",
+      "Bash(where \"Google Chrome\")",
+      "Read(//c/Program Files/Google/Chrome/Application/**)",
+      "Read(//c/Program Files \\(x86\\)/Google/Chrome/Application/**)",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --print-to-pdf=\"C:/Users/megal/OneDrive/Escritorio/Proyectos CC/web-arquitecto/tarjeta.pdf\" --no-pdf-header-footer --print-to-pdf-no-header \"file:///C:/Users/megal/OneDrive/Escritorio/Proyectos%20CC/web-arquitecto/tarjeta.html\" 2>&1)",
+      "WebSearch",
+      "WebFetch(domain:bpando.org)",
+      "WebFetch(domain:www.archdaily.com)",
+      "WebFetch(domain:www.moo.com)",
+      "WebFetch(domain:www.manypixels.co)",
+      "WebFetch(domain:creativemarket.com)",
+      "WebFetch(domain:fontsinuse.com)",
+      "WebFetch(domain:www.behance.net)",
+      "WebFetch(domain:www.jukeboxprint.com)",
+      "WebFetch(domain:thegreenspace.com)",
+      "WebFetch(domain:retaildesignblog.net)",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --print-to-pdf=\"C:/Users/megal/OneDrive/Escritorio/Proyectos CC/web-arquitecto/tarjeta-fisica.pdf\" --no-pdf-header-footer --print-to-pdf-no-header \"file:///C:/Users/megal/OneDrive/Escritorio/Proyectos%20CC/web-arquitecto/tarjeta-fisica.html\" 2>&1)",
+      "WebFetch(domain:fonts.google.com)",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --print-to-pdf=\"C:/Users/megal/OneDrive/Escritorio/Proyectos CC/web-arquitecto/tarjeta-digital.pdf\" --no-pdf-header-footer --print-to-pdf-no-header \"file:///C:/Users/megal/OneDrive/Escritorio/Proyectos%20CC/web-arquitecto/tarjeta-digital.html\" 2>&1)",
+      "Bash(notepad .env.local)",
+      "Bash(vercel --version)",
+      "Bash(vercel --prod)"
+    ]
+  }
+}

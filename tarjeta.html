@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RT Arquitectos — Tarjeta de Presentación</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+
+    :root {
+      --ink:   #181818;
+      --cream: #F3F0EA;
+      --off:   #FAFAF8;
+      --red:   #B83226;
+      --dim:   #8A8780;
+      --W: 85mm;
+      --H: 55mm;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @media screen {
+      body {
+        min-height: 100vh;
+        background: #5C5A57;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        padding: 50px 20px;
+      }
+      .card {
+        box-shadow: 0 16px 56px rgba(0,0,0,0.55), 0 4px 12px rgba(0,0,0,0.3);
+        border-radius: 0.7mm;
+      }
+      .lbl {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 7px; font-weight: 300; letter-spacing: 4px;
+        text-transform: uppercase; color: rgba(255,255,255,0.28);
+        align-self: flex-start;
+        margin-left: max(0px, calc(50vw - 42.5mm - 20px));
+      }
+      .btn {
+        background: var(--ink); color: var(--off); border: none;
+        padding: 13px 44px; cursor: pointer;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 8px; font-weight: 400; letter-spacing: 4px;
+        text-transform: uppercase; transition: background .2s; margin-top: 4px;
+      }
+      .btn:hover { background: var(--red); }
+      .note { font-family:'Montserrat',sans-serif; font-size:7px; letter-spacing:2px; color:rgba(255,255,255,0.22); text-transform:uppercase; }
+    }
+
+    @media print {
+      @page { size: 85mm 55mm; margin: 0; }
+      body { background: white; margin: 0; padding: 0; }
+      .lbl, .btn, .note { display: none; }
+      .card { page-break-after: always; border-radius: 0 !important; box-shadow: none !important; }
+    }
+
+    .card {
+      width: var(--W); height: var(--H);
+      position: relative; overflow: hidden; flex-shrink: 0;
+    }
+
+
+    /* ══════════════════════════════════════════════════════
+       F R E N T E
+       Diseño: espacio negro profundo, logo RT enorme que
+       domina la mitad superior. Línea roja de corte en el
+       tercio inferior. Nombre en italic clásica abajo.
+       Inspiración: Tadao Ando, Aires Mateus, Kengo Kuma.
+    ══════════════════════════════════════════════════════ */
+
+    .front {
+      background: var(--ink);
+      display: flex;
+      flex-direction: column;
+      /* Sin padding — construimos el espacio con los propios elementos */
+    }
+
+    /* Banda lateral izquierda roja (delgada, firme) */
+    .f-stripe {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2.5px;
+      background: var(--red);
+    }
+
+    /* ── Zona logo — ocupa los ~2/3 superiores ── */
+    .f-top {
+      flex: 0 0 63%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 8mm 3mm 8mm;
+    }
+
+    /* RT: tipografía hero, grande y segura */
+    .f-rt {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 70pt;
+      color: var(--off);
+      letter-spacing: -5px;
+      line-height: 0.82;
+      display: flex;
+    }
+
+    .f-rt .t {
+      position: relative;
+      display: inline-block;
+    }
+    /* Crossbar rojo en la T — la firma del logo */
+    .f-rt .t::after {
+      content: '';
+      position: absolute;
+      top: 29.5%;
+      left: -2px; right: 0;
+      height: 3.5px;
+      background: var(--red);
+    }
+
+    /* "ARQUITECTOS" — hairline, mínimo, debajo del RT */
+    .f-studio {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 100;
+      font-size: 5.2pt;
+      letter-spacing: 7.5px;
+      text-transform: uppercase;
+      color: rgba(250,250,248,0.25);
+      margin-top: 2mm;
+      padding-left: 3px;
+    }
+
+    /* ── Línea divisoria roja — "planta de corte" ── */
+    .f-cut {
+      flex-shrink: 0;
+      height: 1px;
+      background: linear-gradient(to right,
+        transparent 0%,
+        rgba(184,50,38,0.5) 8mm,
+        rgba(184,50,38,0.5) calc(100% - 4mm),
+        transparent 100%);
+      margin: 0 0;
+    }
+
+    /* ── Zona nombre — tercio inferior ── */
+    .f-bottom {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 8mm;
+    }
+
+    .f-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 12pt;
+      color: var(--off);
+      letter-spacing: 0.1px;
+      line-height: 1.15;
+    }
+
+    .f-role {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 5pt;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-top: 1.8mm;
+    }
+
+
+    /* ══════════════════════════════════════════════════════
+       R E V E R S O
+       Fondo crema con grilla de papel de dibujo técnico.
+       Marca de agua "RT" en el fondo — profundidad sutil.
+       Header: logo pequeño + línea roja.
+       Cuerpo: servicios | QR.
+       Pie oscuro: todos los contactos visibles.
+    ══════════════════════════════════════════════════════ */
+
+    .back {
+      background: var(--cream);
+      /* Grilla de papel técnico, barely visible */
+      background-image:
+        linear-gradient(rgba(24,24,24,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(24,24,24,0.05) 1px, transparent 1px);
+      background-size: 5.67mm 5.67mm;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Marca de agua RT en el fondo — capa de profundidad */
+    .back-wm {
+      position: absolute;
+      right: -4mm;
+      top: 50%;
+      transform: translateY(-60%);
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 100pt;
+      color: rgba(24,24,24,0.04);
+      letter-spacing: -8px;
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* ── Header ── */
+    .b-head {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      padding: 5mm 6mm 0 6mm;
+      gap: 3mm;
+    }
+
+    .b-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 17pt;
+      color: var(--ink);
+      letter-spacing: -1px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .b-logo .bt { position: relative; display: inline-block; }
+    .b-logo .bt::after {
+      content: '';
+      position: absolute;
+      top: 29%;
+      left: -1px; right: 0;
+      height: 1.8px;
+      background: var(--red);
+    }
+
+    .b-rule {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right,
+        rgba(184,50,38,0.85) 0%,
+        rgba(184,50,38,0.1) 75%,
+        transparent 100%);
+    }
+
+    .b-arq {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 200;
+      font-size: 3.8pt;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--dim);
+      flex-shrink: 0;
+      padding-bottom: 0.4mm;
+    }
+
+    /* ── Cuerpo ── */
+    .b-body {
+      flex: 1;
+      min-height: 0;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      padding: 3.5mm 6mm 3mm 6mm;
+    }
+
+    /* Columna izquierda — servicios */
+    .b-svc {
+      width: 20mm;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.3mm;
+      padding-right: 3.5mm;
+      border-right: 0.5px solid rgba(184,50,38,0.28);
+    }
+
+    .svc-item {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 200;
+      font-size: 4.3pt;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      color: #575450;
+      display: flex;
+      align-items: center;
+      gap: 1.5mm;
+    }
+
+    .svc-item::before {
+      content: '';
+      display: block;
+      width: 2.5mm;
+      height: 0.6px;
+      background: var(--red);
+      flex-shrink: 0;
+      opacity: 0.85;
+    }
+
+    /* Columna derecha — QR */
+    .b-qr {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.8mm;
+      padding-left: 3mm;
+    }
+
+    #qrcode {
+      background: var(--cream);
+      padding: 3px;
+      outline: 0.5px solid rgba(24,24,24,0.12);
+    }
+
+    #qrcode canvas, #qrcode img { display: block; }
+
+    .qr-lbl {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 200;
+      font-size: 3.8pt;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    /* ── Pie de página — contactos ── */
+    .b-foot {
+      position: relative;
+      z-index: 1;
+      background: var(--ink);
+      padding: 2.2mm 6mm;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      row-gap: 1.4mm;
+      column-gap: 5mm;
+      align-content: center;
+    }
+
+    .ct { display: flex; align-items: baseline; gap: 1.1mm; overflow: hidden; }
+    .ct.w2 { grid-column: span 2; }
+
+    .ct-k {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 3pt;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(184,50,38,0.9);
+      flex-shrink: 0;
+    }
+
+    .ct-v {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 4.5pt;
+      color: rgba(250,250,248,0.75);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="lbl">Frente</div>
+
+  <!-- ═══════════ FRENTE ═══════════ -->
+  <div class="card front">
+
+    <div class="f-stripe"></div>
+
+    <div class="f-top">
+      <div class="f-rt">R<span class="t">T</span></div>
+      <div class="f-studio">Arquitectos</div>
+    </div>
+
+    <div class="f-cut"></div>
+
+    <div class="f-bottom">
+      <div class="f-name">ARQ. Ricardo Gabriel Torrejón</div>
+      <div class="f-role">Director &amp; Fundador</div>
+    </div>
+
+  </div>
+
+  <div class="lbl">Reverso</div>
+
+  <!-- ═══════════ REVERSO ═══════════ -->
+  <div class="card back">
+
+    <!-- Marca de agua fondo -->
+    <div class="back-wm">RT</div>
+
+    <div class="b-head">
+      <div class="b-logo">R<span class="bt">T</span></div>
+      <div class="b-rule"></div>
+      <div class="b-arq">Arquitectos</div>
+    </div>
+
+    <div class="b-body">
+
+      <div class="b-svc">
+        <div class="svc-item">Remodelaciones</div>
+        <div class="svc-item">Ampliaciones</div>
+        <div class="svc-item">Instalaciones</div>
+        <div class="svc-item">Mantenimiento</div>
+      </div>
+
+      <div class="b-qr">
+        <div id="qrcode"></div>
+        <div class="qr-lbl">WhatsApp</div>
+      </div>
+
+    </div>
+
+    <div class="b-foot">
+      <div class="ct"><span class="ct-k">Tel</span><span class="ct-v">+54 11 2450-8817</span></div>
+      <div class="ct"><span class="ct-k">WA</span><span class="ct-v">+54 9 11 2469-0859</span></div>
+      <div class="ct"><span class="ct-k">IG</span><span class="ct-v">@rtestudioarq</span></div>
+      <div class="ct"><span class="ct-k">Web</span><span class="ct-v">rtestudioarq.com.ar</span></div>
+      <div class="ct w2"><span class="ct-k">Email</span><span class="ct-v">infortestudioarq@gmail.com</span></div>
+    </div>
+
+  </div>
+
+  <button class="btn" onclick="window.print()">Imprimir / Guardar PDF</button>
+  <div class="note">85 × 55 mm — tarjeta estándar</div>
+
+  <script>
+    new QRCode(document.getElementById("qrcode"), {
+      text: "https://wa.me/5491124690859",
+      width: 74, height: 74,
+      colorDark: "#181818",
+      colorLight: "#F3F0EA",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  </script>
+
+</body>
+</html>

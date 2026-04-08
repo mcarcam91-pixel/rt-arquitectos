@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RT Arquitectos | Ricardo Torrejón</title>
+  <meta name="description" content="RT Arquitectos — Estudio de Arquitectura, Diseño y Ejecución. Fundado por el ARQ. Ricardo Gabriel Torrejón en Avellaneda, Buenos Aires." />
+
+  <script>
+  (function(){
+    var s=localStorage.getItem('rt-theme');
+    if(!s) s=window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';
+    document.documentElement.setAttribute('data-theme',s);
+  })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     NAV
+════════════════════════════════════════════ -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <!-- Logo: caja negra RT estilo referencia -->
+    <div class="nav-logo-box">
+      <svg viewBox="0 0 80 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="6" y1="5" x2="6" y2="51" stroke="white" stroke-width="5.5" stroke-linecap="butt"/>
+        <path d="M6 5 Q38 5 38 17 Q38 29 28 29 L6 29" stroke="white" stroke-width="5.5" fill="none" stroke-linecap="butt" stroke-linejoin="miter"/>
+        <polygon points="20,28 26,28 42,52 36,52" fill="white"/>
+        <line x1="46" y1="5" x2="76" y2="5" stroke="white" stroke-width="5.5" stroke-linecap="butt"/>
+        <line x1="61" y1="5" x2="61" y2="51" stroke="white" stroke-width="5.5" stroke-linecap="butt"/>
+      </svg>
+    </div>
+    <!-- Texto al lado del logo -->
+    <div class="nav-brand-block">
+      <span class="nav-brand-name">ARQUITECTOS ASOCIADOS</span>
+      <span class="nav-brand-sub">DISEÑO &amp; EJECUCIÓN</span>
+    </div>
+  </a>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">Quiénes Somos</a></li>
+    <li><a href="#services">Servicios</a></li>
+    <li><a href="#projects">Obras</a></li>
+    <li><a href="https://wa.me/5491124508817?text=Hola%20Ricardo%2C%20me%20gustar%C3%ADa%20consultarte%20sobre%20un%20proyecto." target="_blank" class="btn btn-dark">Contactanos</a></li>
+  </ul>
+
+  <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+    <!-- Sol: visible en dark mode → click cambia a light -->
+    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <circle cx="12" cy="12" r="4"/>
+      <line x1="12" y1="2"  x2="12" y2="5"/>
+      <line x1="12" y1="19" x2="12" y2="22"/>
+      <line x1="2"  y1="12" x2="5"  y2="12"/>
+      <line x1="19" y1="12" x2="22" y2="12"/>
+      <line x1="4.22"  y1="4.22"  x2="6.34"  y2="6.34"/>
+      <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+      <line x1="4.22"  y1="19.78" x2="6.34"  y2="17.66"/>
+      <line x1="17.66" y1="6.34"  x2="19.78" y2="4.22"/>
+    </svg>
+    <!-- Luna: visible en light mode → click cambia a dark -->
+    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
+
+  <!-- Hamburguesa mobile -->
+  <button class="nav-hamburger" id="hamburger" aria-label="Menú" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- Menú mobile overlay -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about"    class="mobile-link">Quiénes Somos</a>
+  <a href="#services" class="mobile-link">Servicios</a>
+  <a href="#projects" class="mobile-link">Obras</a>
+  <a href="https://wa.me/5491124508817?text=Hola%20Ricardo%2C%20me%20gustar%C3%ADa%20consultarte%20sobre%20un%20proyecto." target="_blank" class="mobile-link mobile-link-cta">Contactanos</a>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
+<section id="hero">
+
+  <!-- Venas de mármol — fondo decorativo del hero -->
+  <svg class="hero-veins" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"
+       fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+    <!-- Venas doradas — visibles en dark y light -->
+    <!-- Vena principal: diagonal larga de esquina a esquina, 1.2px -->
+    <path class="vein-gold"
+      d="M -10 140 C 180 90, 420 210, 680 175 S 980 290, 1240 255 S 1400 310, 1460 285"
+      stroke="var(--gold)" stroke-width="1.2" />
+
+    <!-- Vena secundaria: diagonal media, 0.8px -->
+    <path class="vein-gold"
+      d="M 200 -15 C 320 110, 410 185, 560 230 S 800 360, 960 395 S 1140 455, 1300 530"
+      stroke="var(--gold)" stroke-width="0.8" />
+
+    <!-- Vena corta: cruza zona central, 0.6px -->
+    <path class="vein-gold"
+      d="M 560 -20 C 610 90, 635 165, 690 295 S 775 460, 835 615"
+      stroke="var(--gold)" stroke-width="0.6" />
+
+    <!-- Vena fina: sector derecho, 0.4px -->
+    <path class="vein-gold"
+      d="M 920 80 C 965 175, 995 260, 1030 395 S 1070 525, 1115 670"
+      stroke="var(--gold)" stroke-width="0.4" />
+
+    <!-- Vena baja: cruza parte inferior, 0.7px -->
+    <path class="vein-gold"
+      d="M -20 610 C 160 545, 370 580, 630 520 S 940 540, 1180 498 S 1390 470, 1460 510"
+      stroke="var(--gold)" stroke-width="0.7" />
+
+    <!-- Venas grises — efecto Calacatta (predominan en light mode) -->
+    <!-- Gris 1: diagonal vertical izquierda-centro, 0.7px -->
+    <path class="vein-grey"
+      d="M 310 -15 C 430 105, 490 210, 560 360 S 635 520, 690 710 S 730 820, 755 920"
+      stroke="#C8C4BC" stroke-width="0.7" />
+
+    <!-- Gris 2: sector derecho, 0.5px -->
+    <path class="vein-grey"
+      d="M 1060 -10 C 1108 125, 1128 215, 1168 360 S 1205 515, 1228 710"
+      stroke="#C8C4BC" stroke-width="0.5" />
+
+  </svg>
+
+  <div class="hero-left">
+    <p class="hero-eyebrow">ARQ. Ricardo Gabriel Torrejón</p>
+
+    <h1 class="hero-title">
+      Arquitectura,<br>
+      <em>Diseño &amp;</em><br>
+      Ejecución.
+    </h1>
+
+    <!-- Eslogan -->
+    <p class="hero-slogan">Del concepto a la obra.</p>
+
+    <p class="hero-desc">
+      Estudio con base en Avellaneda, Buenos Aires.
+      Proyectamos, dirigimos y ejecutamos obras con rigor técnico
+      y sensibilidad estética en cada etapa del proceso.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-dark">Ver Obras</a>
+      <a href="https://wa.me/5491124508817?text=Hola%20Ricardo%2C%20me%20gustar%C3%ADa%20consultarte%20sobre%20un%20proyecto." target="_blank" class="hero-link">Escribinos por WhatsApp →</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <!-- Logo grande — caja gris oscuro con RT blanco -->
+    <div class="hero-logo-dark">
+      <svg viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="12" y1="9" x2="12" y2="101" stroke="white" stroke-width="11" stroke-linecap="butt"/>
+        <path d="M12 9 Q80 9 80 31 Q80 53 58 53 L12 53" stroke="white" stroke-width="11" fill="none" stroke-linecap="butt" stroke-linejoin="miter"/>
+        <polygon points="38,52 50,52 86,102 74,102" fill="white"/>
+        <line x1="94" y1="9" x2="170" y2="9" stroke="white" stroke-width="11" stroke-linecap="butt"/>
+        <line x1="132" y1="9" x2="132" y2="101" stroke="white" stroke-width="11" stroke-linecap="butt"/>
+      </svg>
+      <span class="hero-logo-label">ARQUITECTOS ASOCIADOS &nbsp;·&nbsp; DISEÑO Y EJECUCIÓN</span>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     ABOUT
+════════════════════════════════════════════ -->
+<section id="about">
+
+  <div class="sec-header reveal">
+    <span class="sec-num">01</span>
+    <div class="sec-rule"></div>
+    <h2 class="sec-title">El <em>Estudio</em></h2>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        <strong>RT Arquitectos</strong> es el estudio de arquitectura fundado por el
+        Arq. Ricardo Gabriel Torrejón, profesional matriculado con base en Avellaneda,
+        Provincia de Buenos Aires.
+      </p>
+      <p>
+        Con una visión centrada en la <strong>excelencia técnica</strong> y la
+        <strong>sensibilidad estética</strong>, cada proyecto es concebido como una obra singular
+        que responde a las necesidades del cliente y dialoga con su entorno natural y urbano.
+      </p>
+      <p>
+        Desde el diseño conceptual hasta la dirección y administración de obra, el estudio
+        acompaña cada etapa del proceso con dedicación y rigor profesional.
+        Modalidad presencial u online — obra nueva, remodelación y ampliación.
+      </p>
+    </div>
+
+    <div class="about-stats reveal">
+      <div class="stat">
+        <div class="stat-num" data-count="10" data-suffix="+">10+</div>
+        <div class="stat-label">Años de experiencia</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-count="50" data-suffix="+">50+</div>
+        <div class="stat-label">Proyectos realizados</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">ARQ.</div>
+        <div class="stat-label">Matrícula profesional</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">GBA</div>
+        <div class="stat-label">Avellaneda, Buenos Aires</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     SERVICES
+════════════════════════════════════════════ -->
+<section id="services">
+
+  <div class="sec-header reveal">
+    <span class="sec-num">02</span>
+    <div class="sec-rule"></div>
+    <h2 class="sec-title"><em>Servicios</em></h2>
+  </div>
+
+  <p class="services-intro reveal">
+    Acompañamos cada proyecto desde la idea inicial hasta la entrega final,
+    con atención personalizada en cada etapa del proceso.
+  </p>
+
+  <div class="service-row reveal">
+    <div class="service-left">
+      <span class="service-dash">—</span>
+      <span class="service-name">Remodelaciones</span>
+    </div>
+    <span class="service-tag">Reforma · Reciclado · Intervención</span>
+  </div>
+
+  <div class="service-row reveal">
+    <div class="service-left">
+      <span class="service-dash">—</span>
+      <span class="service-name">Ampliaciones</span>
+    </div>
+    <span class="service-tag">Planta alta · Locales · Viviendas</span>
+  </div>
+
+  <div class="service-row reveal">
+    <div class="service-left">
+      <span class="service-dash">—</span>
+      <span class="service-name">Instalaciones</span>
+    </div>
+    <span class="service-tag">Eléctricas · Sanitarias · Gas</span>
+  </div>
+
+  <div class="service-row reveal">
+    <div class="service-left">
+      <span class="service-dash">—</span>
+      <span class="service-name">Mantenimiento</span>
+    </div>
+    <span class="service-tag">Correctivo · Preventivo · Edilicio</span>
+  </div>
+
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     PROJECTS
+════════════════════════════════════════════ -->
+<section id="projects">
+
+  <div class="sec-header reveal">
+    <span class="sec-num">03</span>
+    <div class="sec-rule"></div>
+    <h2 class="sec-title"><em>Proyectos</em></h2>
+  </div>
+
+  <div class="projects-grid reveal">
+
+    <!-- Card 1 — grande izquierda: casa moderna exterior -->
+    <div class="proj-card">
+      <div class="proj-card-inner">
+        <img
+          src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=900&q=80&fit=crop"
+          alt="Casa Unifamiliar — Proyecto residencial Avellaneda"
+          class="proj-img"
+          loading="lazy"
+        />
+        <div class="proj-overlay">
+          <p class="proj-overlay-cat">Residencial · Avellaneda</p>
+          <h3 class="proj-overlay-title">Casa Unifamiliar</h3>
+        </div>
+      </div>
+      <div class="proj-foot">
+        <p class="proj-foot-cat">Residencial · Avellaneda</p>
+        <h3 class="proj-foot-title">Casa Unifamiliar</h3>
+      </div>
+    </div>
+
+    <!-- Card 2 — pequeña derecha: fachada comercial -->
+    <div class="proj-card">
+      <div class="proj-card-inner">
+        <img
+          src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&q=80&fit=crop"
+          alt="Local Comercial — Proyecto comercial Buenos Aires"
+          class="proj-img"
+          loading="lazy"
+        />
+        <div class="proj-overlay">
+          <p class="proj-overlay-cat">Comercial · Buenos Aires</p>
+          <h3 class="proj-overlay-title">Local Comercial</h3>
+        </div>
+      </div>
+      <div class="proj-foot">
+        <p class="proj-foot-cat">Comercial · Buenos Aires</p>
+        <h3 class="proj-foot-title">Local Comercial</h3>
+      </div>
+    </div>
+
+    <!-- Card 3 — pequeña izquierda: interior moderno -->
+    <div class="proj-card">
+      <div class="proj-card-inner">
+        <img
+          src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=700&q=80&fit=crop"
+          alt="Diseño Interior — Interiorismo Gran Buenos Aires"
+          class="proj-img"
+          loading="lazy"
+        />
+        <div class="proj-overlay">
+          <p class="proj-overlay-cat">Interiorismo · Gran Buenos Aires</p>
+          <h3 class="proj-overlay-title">Diseño Interior</h3>
+        </div>
+      </div>
+      <div class="proj-foot">
+        <p class="proj-foot-cat">Interiorismo · Gran Buenos Aires</p>
+        <h3 class="proj-foot-title">Diseño Interior</h3>
+      </div>
+    </div>
+
+    <!-- Card 4 — grande derecha: ampliación / construcción -->
+    <div class="proj-card">
+      <div class="proj-card-inner">
+        <img
+          src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&q=80&fit=crop"
+          alt="Ampliación Planta Alta — Gran Buenos Aires"
+          class="proj-img"
+          loading="lazy"
+        />
+        <div class="proj-overlay">
+          <p class="proj-overlay-cat">Ampliación · Gran Buenos Aires</p>
+          <h3 class="proj-overlay-title">Ampliación Planta Alta</h3>
+        </div>
+      </div>
+      <div class="proj-foot">
+        <p class="proj-foot-cat">Ampliación · Gran Buenos Aires</p>
+        <h3 class="proj-foot-title">Ampliación Planta Alta</h3>
+      </div>
+    </div>
+
+  </div><!-- /projects-grid -->
+
+  <p class="projects-cta reveal">
+    <a href="https://www.behance.net/gallery/123628773/Portafolio-arquitectura" target="_blank" class="portfolio-plus-btn">Portfolio +</a>
+  </p>
+
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     FAQ
+════════════════════════════════════════════ -->
+<section id="faq">
+
+  <div class="sec-header reveal">
+    <span class="sec-num">05</span>
+    <div class="sec-rule"></div>
+    <h2 class="sec-title">Preguntas <em>frecuentes</em></h2>
+  </div>
+
+  <div class="faq-list">
+
+    <div class="faq-item reveal">
+      <button class="faq-question" aria-expanded="false">
+        <span>¿Quiénes son RT Arquitectos?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Somos un estudio boutique fundado por el ARQ. Ricardo Gabriel Torrejón, con base en Avellaneda, Buenos Aires. Nos especializamos en remodelaciones, ampliaciones, instalaciones y mantenimiento edilicio, trabajando tanto con clientes particulares como con empresas en todo el Gran Buenos Aires.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" aria-expanded="false">
+        <span>¿Cómo es el proceso de trabajo con ustedes?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Empezamos con una consulta inicial gratuita para entender tu necesidad y el estado del espacio. Luego elaboramos un presupuesto detallado y, una vez aprobado, gestionamos materiales, mano de obra y plazos. Te acompañamos de principio a fin con comunicación directa y transparente.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" aria-expanded="false">
+        <span>¿En qué zonas trabajan?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Principalmente en Avellaneda y el Gran Buenos Aires. También trabajamos en Capital Federal y zonas del interior según el proyecto. Consultanos sin compromiso y evaluamos juntos la viabilidad.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" aria-expanded="false">
+        <span>¿Trabajan con presupuesto cerrado?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Sí. Ofrecemos presupuesto cerrado y detallado antes de iniciar cualquier trabajo, para que sepas exactamente en qué se invierte cada peso. Creemos que la claridad desde el inicio es la base de una buena relación con el cliente.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" aria-expanded="false">
+        <span>¿Cuánto tiempo lleva una remodelación o ampliación?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Depende del alcance del proyecto, pero una remodelación de ambiente puede llevar entre 2 y 6 semanas, mientras que una ampliación de planta puede extenderse entre 2 y 5 meses. Siempre comunicamos un cronograma estimado antes de comenzar y lo cumplimos.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     CONTACT — fondo oscuro con cards bordeadas
+     (inspirado en Estudio Frigerio)
+════════════════════════════════════════════ -->
+<section id="contact">
+
+  <div class="sec-header reveal">
+    <span class="sec-num">06</span>
+    <div class="sec-rule"></div>
+    <h2 class="sec-title"><em>Contacto</em></h2>
+  </div>
+
+  <!-- Cards de información — borde blanco tenue sobre fondo negro -->
+  <div class="contact-cards reveal">
+
+    <div class="contact-card">
+      <p class="contact-item-label">WhatsApp</p>
+      <p class="contact-item-val">
+        <a href="https://wa.me/5491124508817">(+54) 9 11 2450-8817</a>
+      </p>
+    </div>
+
+    <div class="contact-card">
+      <p class="contact-item-label">Teléfono</p>
+      <p class="contact-item-val">
+        <a href="tel:+541124508817">+54 11 2450-8817</a>
+      </p>
+    </div>
+
+    <div class="contact-card">
+      <p class="contact-item-label">Email</p>
+      <p class="contact-item-val">
+        <a href="mailto:infortestudioarq@gmail.com">infortestudioarq@gmail.com</a>
+      </p>
+    </div>
+
+    <div class="contact-card">
+      <p class="contact-item-label">Instagram</p>
+      <p class="contact-item-val">
+        <a href="https://instagram.com/rtestudioarq" target="_blank">@rtestudioarq</a>
+      </p>
+    </div>
+
+    <div class="contact-card">
+      <p class="contact-item-label">Ubicación</p>
+      <p class="contact-item-val">Avellaneda<br>Buenos Aires, Argentina</p>
+    </div>
+
+    <div class="contact-card">
+      <p class="contact-item-label">Modalidad</p>
+      <p class="contact-item-val">Presencial · Online<br>Obra nueva · Reforma · Ampliación</p>
+    </div>
+
+  </div><!-- /contact-cards -->
+
+  <!-- Botón WhatsApp -->
+  <div class="contact-wa-wrap reveal">
+    <a href="https://wa.me/5491124508817?text=Hola%20Ricardo%2C%20me%20gustar%C3%ADa%20consultarte%20sobre%20un%20proyecto." target="_blank" class="whatsapp-btn">
+      <!-- WhatsApp icon -->
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Escribir por WhatsApp
+    </a>
+  </div>
+
+  <!-- Formulario -->
+  <div class="contact-grid reveal">
+    <div class="contact-left">
+      <h3 class="contact-headline">
+        Hablemos de<br>tu <em>próximo<br>proyecto.</em>
+      </h3>
+    </div>
+
+    <form id="contactForm" class="contact-form">
+      <div class="form-row">
+        <label for="name">Nombre completo</label>
+        <input type="text" id="name" name="name" placeholder="Tu nombre" required />
+      </div>
+      <div class="form-row">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="tu@email.com" required />
+      </div>
+      <div class="form-row">
+        <label for="phone">Teléfono</label>
+        <input type="tel" id="phone" name="phone" placeholder="+54 9 11 ..." />
+      </div>
+      <div class="form-row">
+        <label for="project">Tipo de proyecto</label>
+        <input type="text" id="project" name="project" placeholder="Residencial, comercial, reforma..." />
+      </div>
+      <div class="form-row">
+        <label for="message">Mensaje</label>
+        <textarea id="message" name="message" placeholder="Contame sobre tu proyecto..." required></textarea>
+      </div>
+      <button type="submit" class="btn-form">Enviar consulta</button>
+    </form>
+  </div>
+
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-logo">
+    <!-- Logo RT pequeño en footer -->
+    <svg height="24" viewBox="0 0 80 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="6" y1="5" x2="6" y2="51" stroke="rgba(237,236,234,0.45)" stroke-width="5.5" stroke-linecap="butt"/>
+      <path d="M6 5 Q38 5 38 17 Q38 29 28 29 L6 29" stroke="rgba(237,236,234,0.45)" stroke-width="5.5" fill="none" stroke-linecap="butt" stroke-linejoin="miter"/>
+      <polygon points="20,28 26,28 42,52 36,52" fill="rgba(237,236,234,0.45)"/>
+      <line x1="46" y1="5" x2="76" y2="5" stroke="rgba(237,236,234,0.45)" stroke-width="5.5" stroke-linecap="butt"/>
+      <line x1="61" y1="5" x2="61" y2="51" stroke="rgba(237,236,234,0.45)" stroke-width="5.5" stroke-linecap="butt"/>
+    </svg>
+    <span class="footer-brand">RT Arquitectos</span>
+  </div>
+
+  <!-- Crédito del fundador — como en Estudio Frigerio -->
+  <div class="footer-director">
+    <span class="footer-director-label">Fundador y Director</span>
+    <span class="footer-director-name">Ricardo Torrejón</span>
+  </div>
+
+  <p class="footer-copy">© 2026 ARQ. Ricardo Gabriel Torrejón</p>
+
+  <div class="footer-social">
+    <a href="https://instagram.com/rtestudioarq" target="_blank">Instagram</a>
+    <a href="https://wa.me/5491124508817" target="_blank">WhatsApp</a>
+  </div>
+</footer>
+
+
+<script src="script.js"></script>
+</body>
+</html>

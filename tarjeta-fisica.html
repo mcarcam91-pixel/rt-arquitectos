@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>RT Arquitectos — Tarjeta Física</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@400;600;700;800&family=Montserrat:wght@200;300;400;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+
+    :root {
+      --ink:    #1A1A1A;
+      --white:  #FFFFFF;
+      --cream:  #F5F2ED;
+      --gray:   #555555;
+      --light:  #AAAAAA;
+      --shadow: #C2C2C2;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ── Pantalla ── */
+    @media screen {
+      body {
+        min-height: 100vh;
+        background: #888;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        padding: 50px 20px;
+      }
+      .card {
+        box-shadow: 0 8px 30px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.2);
+        border-radius: 0.5mm;
+      }
+      .lbl {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 11px; letter-spacing: 4px;
+        color: rgba(255,255,255,0.35);
+        align-self: flex-start;
+        margin-left: max(0px, calc(50vw - 45mm - 20px));
+      }
+      .btn {
+        background: var(--ink); color: var(--white); border: none;
+        padding: 12px 40px; cursor: pointer;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 13px; letter-spacing: 4px;
+        transition: background .2s; margin-top: 6px;
+      }
+      .btn:hover { background: #333; }
+      .note {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 7px; letter-spacing: 2px;
+        color: rgba(255,255,255,0.25); text-transform: uppercase;
+      }
+    }
+
+    /* ── Impresión ── */
+    @media print {
+      @page { size: 90mm 50mm; margin: 0; }
+      body { background: white; margin: 0; padding: 0; }
+      .lbl, .btn, .note { display: none; }
+      .card { page-break-after: always; border-radius: 0 !important; box-shadow: none !important; }
+    }
+
+    /* ── Base tarjeta — 9 × 5 cm ── */
+    .card {
+      width: 90mm;
+      height: 50mm;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+
+    /* ════════════════════════════════════════════════
+       C A R A   F R O N T A L
+       Layout del boceto:
+       ┌──────────────┬───────────────────────────┐
+       │  Logo RT     │  SERVICIOS                │
+       │  Nombre      │  — Remodelaciones         │
+       │  Diseño y    │  — Ampliaciones           │
+       │  ejecución   │  — Instalaciones          │
+       │  web         │  — Mantenimiento          │
+       ├──────────────┴───────────────────────────┤
+       │  +54 9 11 2469-0859 · Avellaneda, BsAs   │
+       └──────────────────────────────────────────┘
+    ════════════════════════════════════════════════ */
+
+    .front {
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Zona principal — dos columnas */
+    .f-main {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+    }
+
+    /* ── Columna izquierda ── */
+    .f-left {
+      width: 38mm;
+      flex-shrink: 0;
+      padding: 4mm 4mm 3mm 5mm;
+      border-right: 0.6px solid #BBBBBB;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Bloque logo + nombre — centrado horizontal */
+    .f-logo-block {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Logo RT con efecto 3D — centrado */
+    .logo-wrap svg {
+      display: block;
+    }
+
+    /* Nombre — una sola línea, Barlow Condensed */
+    .f-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 8.5pt;
+      color: var(--ink);
+      letter-spacing: 1px;
+      line-height: 1.1;
+      margin-top: 1.5mm;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    /* Info secundaria */
+    .f-info {
+      margin-top: auto;
+    }
+
+    .f-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 5pt;
+      color: var(--gray);
+      letter-spacing: 0.3px;
+      line-height: 1.5;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .f-web {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 4.8pt;
+      color: var(--light);
+      letter-spacing: 0.2px;
+      margin-top: 1mm;
+      text-align: center;
+    }
+
+    /* ── Columna derecha — Servicios ── */
+    .f-right {
+      flex: 1;
+      padding: 4mm 5mm 3mm 4.5mm;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .f-svc-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 9pt;
+      color: var(--ink);
+      letter-spacing: 2.5px;
+      margin-bottom: 2.5mm;
+      padding-bottom: 1.5mm;
+      border-bottom: 0.5px solid #DDDDDD;
+    }
+
+    .f-svc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4mm;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    .f-svc-item {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 5pt;
+      color: var(--gray);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 2mm;
+    }
+
+    .f-svc-item::before {
+      content: '';
+      display: block;
+      width: 3mm;
+      height: 0.5px;
+      background: var(--ink);
+      flex-shrink: 0;
+      opacity: 0.4;
+    }
+
+    /* ── Franja de contacto ── */
+    .f-foot {
+      height: 10mm;
+      border-top: 0.6px solid #BBBBBB;
+      padding: 0 5mm;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--white);
+    }
+
+    .f-contact {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 5.2pt;
+      color: var(--gray);
+      letter-spacing: 0.3px;
+    }
+
+    .f-contact strong {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .f-arq {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 9pt;
+      color: var(--ink);
+      letter-spacing: 2px;
+    }
+
+
+    /* ════════════════════════════════════════════════
+       R E V E R S O
+       Blanco limpio. Logo centrado + QR WhatsApp.
+    ════════════════════════════════════════════════ */
+
+    .back {
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3.5mm;
+      padding: 4mm 6mm;
+    }
+
+    /* Logo centrado */
+    .b-logo-wrap {
+      position: relative;
+      display: inline-block;
+    }
+
+    .b-logo-wrap svg { display: block; }
+
+    /* Divider */
+    .b-div {
+      width: 40mm;
+      height: 0.5px;
+      background: #CCCCCC;
+    }
+
+    /* Área QR */
+    .b-qr-area {
+      display: flex;
+      align-items: center;
+      gap: 5mm;
+    }
+
+    #qrcode {
+      background: var(--white);
+      padding: 3px;
+      outline: 0.5px solid #DDDDDD;
+    }
+
+    #qrcode canvas, #qrcode img { display: block; }
+
+    .b-qr-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2mm;
+    }
+
+    .b-qr-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 9pt;
+      letter-spacing: 2px;
+      color: var(--ink);
+    }
+
+    .b-qr-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 5pt;
+      color: var(--gray);
+      letter-spacing: 0.3px;
+    }
+
+    .b-qr-extra {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 4.5pt;
+      color: var(--light);
+      letter-spacing: 0.2px;
+      line-height: 1.6;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="lbl">Frente</div>
+
+  <!-- ═══════════════ FRENTE ═══════════════ -->
+  <div class="card front">
+
+    <div class="f-main">
+
+      <!-- Columna izquierda -->
+      <div class="f-left">
+
+        <div class="f-logo-block">
+          <div class="logo-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 58" width="88" height="58">
+              <!-- Capa sombra gris -->
+              <text x="8" y="52" fill="#C2C2C2"
+                    font-family="Anton,Impact,sans-serif" font-size="52" letter-spacing="4">RT</text>
+              <!-- Cortes blancos: cubren la sombra para simular el corte diagonal -->
+              <polygon points="8,14 18,14 8,25" fill="white"/>
+              <polygon points="40,14 50,14 40,25" fill="white"/>
+              <!-- Capa principal negra, desplazada +6px derecha -6px arriba -->
+              <g transform="translate(6,-6)">
+                <text x="8" y="52" fill="#1A1A1A"
+                      font-family="Anton,Impact,sans-serif" font-size="52" letter-spacing="4">RT</text>
+                <polygon points="8,14 18,14 8,25" fill="white"/>
+                <polygon points="40,14 50,14 40,25" fill="white"/>
+              </g>
+            </svg>
+          </div>
+          <div class="f-name">ARQ. TORREJÓN RICARDO</div>
+        </div>
+
+        <div class="f-info">
+          <div class="f-tag">Diseño y ejecución</div>
+          <div class="f-web">rtestudioarq.com.ar</div>
+        </div>
+
+      </div>
+
+      <!-- Columna derecha -->
+      <div class="f-right">
+        <div class="f-svc-title">Servicios</div>
+        <div class="f-svc-list">
+          <div class="f-svc-item">Remodelaciones</div>
+          <div class="f-svc-item">Ampliaciones</div>
+          <div class="f-svc-item">Instalaciones</div>
+          <div class="f-svc-item">Mantenimiento</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Franja contacto -->
+    <div class="f-foot">
+      <div class="f-contact">
+        <strong>+54 9 11 2469-0859</strong> &nbsp;·&nbsp; Avellaneda, Buenos Aires
+      </div>
+      <div class="f-arq">Arq.</div>
+    </div>
+
+  </div>
+
+  <div class="lbl">Reverso</div>
+
+  <!-- ═══════════════ REVERSO ═══════════════ -->
+  <div class="card back">
+
+    <div class="b-logo-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 42" width="66" height="42">
+        <!-- Sombra gris -->
+        <text x="4" y="38" fill="#C2C2C2"
+              font-family="Anton,Impact,sans-serif" font-size="38" letter-spacing="4">RT</text>
+        <polygon points="4,10 12,10 4,19" fill="white"/>
+        <polygon points="30,10 38,10 30,19" fill="white"/>
+        <!-- Capa negra, offset +5px derecha -5px arriba -->
+        <g transform="translate(5,-5)">
+          <text x="4" y="38" fill="#1A1A1A"
+                font-family="Anton,Impact,sans-serif" font-size="38" letter-spacing="4">RT</text>
+          <polygon points="4,10 12,10 4,19" fill="white"/>
+          <polygon points="30,10 38,10 30,19" fill="white"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="b-div"></div>
+
+    <div class="b-qr-area">
+      <div id="qrcode"></div>
+      <div class="b-qr-info">
+        <div class="b-qr-label">WhatsApp</div>
+        <div class="b-qr-num">+54 9 11 2469-0859</div>
+        <div class="b-qr-extra">
+          infortestudioarq@gmail.com<br>
+          @rtestudioarq<br>
+          rtestudioarq.com.ar
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <button class="btn" onclick="window.print()">Imprimir / Guardar PDF</button>
+  <div class="note">90 × 50 mm · Tarjeta estándar Argentina</div>
+
+  <script>
+    new QRCode(document.getElementById("qrcode"), {
+      text: "https://wa.me/5491124690859",
+      width: 68, height: 68,
+      colorDark: "#1A1A1A", colorLight: "#FFFFFF",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  </script>
+
+</body>
+</html>

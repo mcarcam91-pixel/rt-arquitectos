@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>RT Arquitectos — Tarjeta Digital</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@1,300&family=Montserrat:wght@100;200;300;400;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+
+    :root {
+      --ink:    #1A1A1A;
+      --white:  #FFFFFF;
+      --cream:  #F3F0EA;
+      --red:    #B83226;   /* solo referencia, ya no se usa */
+      --petrol: #1A6B5A;
+      --shadow: #C2C2C2;
+      --dim:    #8A8780;
+      --light:  #FAFAF8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #606060;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 40px 20px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .hint {
+      font-size: 8px; font-weight: 300; letter-spacing: 3px;
+      text-transform: uppercase; color: rgba(255,255,255,0.3);
+    }
+
+    /* ══════════════════════════════════════════════════
+       TARJETA DIGITAL — 900 × 500 px
+       Formato paisaje optimizado para WhatsApp.
+       Panel izquierdo oscuro: identidad visual.
+       Panel derecho claro: información de contacto.
+    ══════════════════════════════════════════════════ */
+
+    .dcard {
+      width: 900px;
+      height: 500px;
+      display: flex;
+      overflow: hidden;
+      border-radius: 3px;
+      box-shadow:
+        0 4px 8px rgba(0,0,0,0.1),
+        0 12px 36px rgba(0,0,0,0.3),
+        0 24px 60px rgba(0,0,0,0.25);
+    }
+
+    /* ──────────────────────────────────────────────
+       PANEL IZQUIERDO — Identidad
+       Fondo oscuro, logo 3D grande
+    ────────────────────────────────────────────── */
+    .d-left {
+      width: 360px;
+      flex-shrink: 0;
+      background: var(--ink);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 44px 46px 40px 46px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Franja petróleo izquierda */
+    .d-left::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--petrol);
+    }
+
+    /* Marca de agua enorme */
+    .d-wm {
+      position: absolute;
+      right: -30px; bottom: -20px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 180px;
+      color: rgba(255,255,255,0.03);
+      letter-spacing: -15px;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Logo 3D grande */
+    .d-logo-wrap {
+      position: relative;
+      display: inline-block;
+    }
+
+    .d-logo-wrap svg { display: block; }
+
+    /* Bloque inferior izquierdo */
+    .d-bottom-left {
+      position: relative; z-index: 1;
+    }
+
+    .d-studio-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 100;
+      font-size: 9px;
+      letter-spacing: 7px;
+      text-transform: uppercase;
+      color: rgba(250,250,248,0.3);
+      margin-bottom: 10px;
+    }
+
+    .d-person {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 20px;
+      color: var(--light);
+      letter-spacing: 0.2px;
+      line-height: 1.2;
+    }
+
+    .d-role {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 8.5px;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--petrol);
+      margin-top: 7px;
+    }
+
+    /* ──────────────────────────────────────────────
+       PANEL DERECHO — Información
+       Fondo blanco/crema, contactos + QR + servicios
+    ────────────────────────────────────────────── */
+    .d-right {
+      flex: 1;
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      padding: 38px 44px 34px 44px;
+      gap: 0;
+      position: relative;
+    }
+
+    /* Header del panel derecho */
+    .d-right-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 26px;
+    }
+
+    .d-right-rule {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right,
+        rgba(26,107,90,0.9) 0%,
+        rgba(26,107,90,0.1) 75%,
+        transparent 100%);
+    }
+
+    .d-right-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 200;
+      font-size: 7.5px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    /* Cuerpo del panel derecho */
+    .d-right-body {
+      flex: 1;
+      display: flex;
+      gap: 0;
+    }
+
+    /* Columna contactos */
+    .d-contacts {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-right: 30px;
+      border-right: 0.5px solid rgba(26,107,90,0.25);
+    }
+
+    .d-contact-group {}
+
+    .d-contact-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 7.5px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--petrol);
+      margin-bottom: 14px;
+    }
+
+    .d-ct {
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+      margin-bottom: 9px;
+    }
+
+    .d-ct-k {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 6.5px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(26,107,90,0.9);
+      width: 32px;
+      flex-shrink: 0;
+    }
+
+    .d-ct-v {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 10px;
+      color: var(--ink);
+      letter-spacing: 0.1px;
+    }
+
+    /* Servicios */
+    .d-services {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .d-svc {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 200;
+      font-size: 8px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #5A5755;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .d-svc::before {
+      content: '';
+      width: 14px; height: 0.8px;
+      background: var(--petrol);
+      flex-shrink: 0;
+      opacity: 0.75;
+    }
+
+    /* Columna QR */
+    .d-qr-col {
+      width: 150px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-left: 28px;
+      gap: 10px;
+    }
+
+    #qrcode-d {
+      background: var(--cream);
+      padding: 5px;
+      outline: 0.8px solid rgba(24,24,24,0.1);
+    }
+
+    #qrcode-d canvas, #qrcode-d img { display: block; }
+
+    .d-qr-lbl {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 200;
+      font-size: 7px;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-align: center;
+    }
+
+    .d-qr-sub {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 7.5px;
+      color: var(--ink);
+      text-align: center;
+      opacity: 0.5;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="hint">Tarjeta digital — para compartir por WhatsApp</div>
+
+  <div class="dcard">
+
+    <!-- ══ PANEL IZQUIERDO ══ -->
+    <div class="d-left">
+
+      <div class="d-wm">RT</div>
+
+      <div class="d-logo-wrap" style="position:relative; z-index:1;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 115" width="230" height="115">
+          <!-- Sombra blanca semitransparente -->
+          <text x="10" y="105" fill="rgba(255,255,255,0.22)"
+                font-family="Anton,Impact,sans-serif" font-size="100" letter-spacing="8">RT</text>
+          <!-- Cortes oscuros (igualan el fondo #1A1A1A) -->
+          <polygon points="10,28 24,28 10,44" fill="#1A1A1A"/>
+          <polygon points="68,28 82,28 68,44" fill="#1A1A1A"/>
+          <!-- Capa principal clara, offset +10px derecha -10px arriba -->
+          <g transform="translate(10,-10)">
+            <text x="10" y="105" fill="#FAFAF8"
+                  font-family="Anton,Impact,sans-serif" font-size="100" letter-spacing="8">RT</text>
+            <polygon points="10,28 24,28 10,44" fill="#1A1A1A"/>
+            <polygon points="68,28 82,28 68,44" fill="#1A1A1A"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="d-bottom-left">
+        <div class="d-studio-name">Arquitectos</div>
+        <div class="d-person">ARQ. Ricardo<br>Gabriel Torrejón</div>
+        <div class="d-role">Director &amp; Fundador</div>
+      </div>
+
+    </div>
+
+    <!-- ══ PANEL DERECHO ══ -->
+    <div class="d-right">
+
+      <div class="d-right-head">
+        <div class="d-right-rule"></div>
+        <div class="d-right-label">Contacto</div>
+      </div>
+
+      <div class="d-right-body">
+
+        <div class="d-contacts">
+
+          <div class="d-contact-group">
+            <div class="d-ct">
+              <span class="d-ct-k">Tel</span>
+              <span class="d-ct-v">+54 11 2450-8817</span>
+            </div>
+            <div class="d-ct">
+              <span class="d-ct-k">WA</span>
+              <span class="d-ct-v">+54 9 11 2469-0859</span>
+            </div>
+            <div class="d-ct">
+              <span class="d-ct-k">Email</span>
+              <span class="d-ct-v">infortestudioarq@gmail.com</span>
+            </div>
+            <div class="d-ct">
+              <span class="d-ct-k">IG</span>
+              <span class="d-ct-v">@rtestudioarq</span>
+            </div>
+            <div class="d-ct">
+              <span class="d-ct-k">Web</span>
+              <span class="d-ct-v">rtestudioarq.com.ar</span>
+            </div>
+          </div>
+
+          <div class="d-services">
+            <div class="d-svc">Remodelaciones</div>
+            <div class="d-svc">Ampliaciones</div>
+            <div class="d-svc">Instalaciones</div>
+            <div class="d-svc">Mantenimiento</div>
+          </div>
+
+        </div>
+
+        <div class="d-qr-col">
+          <div id="qrcode-d"></div>
+          <div class="d-qr-lbl">WhatsApp</div>
+          <div class="d-qr-sub">Escanear</div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="hint">Capturar pantalla o usar la tecla Imprimir para guardar como imagen</div>
+
+  <script>
+    new QRCode(document.getElementById("qrcode-d"), {
+      text: "https://wa.me/5491124690859",
+      width: 108, height: 108,
+      colorDark: "#1A1A1A", colorLight: "#F3F0EA",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  </script>
+
+</body>
+</html>
