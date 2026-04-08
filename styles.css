@@ -1158,3 +1158,47 @@ footer {
   .proy-filters-wrap { top: 56px; }
   .proy-filter { padding: 0.9rem 1rem 0.8rem; font-size: 0.55rem; }
 }
+
+
+/* =============================================
+   LOGO — RT Arquitectos tipográfico
+   JPEG fondo negro → mix-blend-mode para ambos temas
+   ============================================= */
+
+/* NAV */
+.nav-logo-img {
+  height: 30px;
+  width: auto;
+  display: block;
+  /* Dark mode: fondo negro del JPEG desaparece con screen */
+  mix-blend-mode: screen;
+  transition: opacity 0.2s;
+}
+.nav-logo:hover .nav-logo-img {
+  opacity: 0.75;
+}
+
+/* Light mode: invert para tener texto oscuro, multiply elimina el fondo blanco */
+[data-theme="light"] .nav-logo-img {
+  filter: invert(1);
+  mix-blend-mode: multiply;
+}
+
+/* FOOTER */
+.footer-logo-img {
+  height: 22px;
+  width: auto;
+  display: block;
+  mix-blend-mode: screen;
+  opacity: 0.5;
+}
+[data-theme="light"] .footer-logo-img {
+  filter: invert(1);
+  mix-blend-mode: multiply;
+  opacity: 0.45;
+}
+
+@media (max-width: 600px) {
+  .nav-logo-img { height: 24px; }
+  .footer-logo-img { height: 18px; }
+}
