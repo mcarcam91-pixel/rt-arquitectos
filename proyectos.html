@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proyectos | RT Arquitectos</title>
+  <meta name="description" content="Selección de obras residenciales, comerciales e interiores diseñadas con precisión y criterio estético por RT Arquitectos." />
+
+  <script>
+  (function(){
+    var s=localStorage.getItem('rt-theme');
+    if(!s) s=window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';
+    document.documentElement.setAttribute('data-theme',s);
+  })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     NAV
+════════════════════════════════════════════ -->
+<nav id="navbar" class="navbar-solid">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-box">
+      <svg viewBox="0 0 80 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="6" y1="5" x2="6" y2="51" stroke="white" stroke-width="5.5" stroke-linecap="butt"/>
+        <path d="M6 5 Q38 5 38 17 Q38 29 28 29 L6 29" stroke="white" stroke-width="5.5" fill="none" stroke-linecap="butt" stroke-linejoin="miter"/>
+        <polygon points="20,28 26,28 42,52 36,52" fill="white"/>
+        <line x1="46" y1="5" x2="76" y2="5" stroke="white" stroke-width="5.5" stroke-linecap="butt"/>
+        <line x1="61" y1="5" x2="61" y2="51" stroke="white" stroke-width="5.5" stroke-linecap="butt"/>
+      </svg>
+    </div>
+    <div class="nav-brand-block">
+      <span class="nav-brand-name">ARQUITECTOS ASOCIADOS</span>
+      <span class="nav-brand-sub">DISEÑO &amp; EJECUCIÓN</span>
+    </div>
+  </a>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html#about">Quiénes Somos</a></li>
+    <li><a href="index.html#services">Servicios</a></li>
+    <li><a href="proyectos.html" class="nav-active">Obras</a></li>
+    <li><a href="https://wa.me/5491124508817?text=Hola%20Ricardo%2C%20me%20gustar%C3%ADa%20consultarte%20sobre%20un%20proyecto." target="_blank" class="btn btn-dark">Contactanos</a></li>
+  </ul>
+
+  <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <circle cx="12" cy="12" r="4"/>
+      <line x1="12" y1="2"  x2="12" y2="5"/>
+      <line x1="12" y1="19" x2="12" y2="22"/>
+      <line x1="2"  y1="12" x2="5"  y2="12"/>
+      <line x1="19" y1="12" x2="22" y2="12"/>
+      <line x1="4.22"  y1="4.22"  x2="6.34"  y2="6.34"/>
+      <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+      <line x1="4.22"  y1="19.78" x2="6.34"  y2="17.66"/>
+      <line x1="17.66" y1="6.34"  x2="19.78" y2="4.22"/>
+    </svg>
+    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
+
+  <button class="nav-hamburger" id="hamburger" aria-label="Menú" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- Menú mobile overlay -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#about"    class="mobile-link">Quiénes Somos</a>
+  <a href="index.html#services" class="mobile-link">Servicios</a>
+  <a href="proyectos.html"      class="mobile-link">Obras</a>
+  <a href="https://wa.me/5491124508817?text=Hola%20Ricardo%2C%20me%20gustar%C3%ADa%20consultarte%20sobre%20un%20proyecto." target="_blank" class="mobile-link mobile-link-cta">Contactanos</a>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     HERO — PAGE HERO
+════════════════════════════════════════════ -->
+<section class="proy-hero">
+  <div class="proy-hero-inner">
+    <p class="proy-hero-eyebrow">RT Arquitectos &nbsp;·&nbsp; Portfolio de Obras</p>
+    <h1 class="proy-hero-title">Proyectos</h1>
+    <div class="proy-hero-rule"></div>
+    <p class="proy-hero-sub">
+      Una selección de obras residenciales, comerciales e interiores<br>
+      diseñadas con precisión y criterio estético.
+    </p>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     FILTROS
+════════════════════════════════════════════ -->
+<div class="proy-filters-wrap">
+  <div class="proy-filters" role="tablist">
+    <button class="proy-filter active" data-filter="todos" role="tab" aria-selected="true">Todos</button>
+    <button class="proy-filter" data-filter="residencial" role="tab" aria-selected="false">Residencial</button>
+    <button class="proy-filter" data-filter="comercial" role="tab" aria-selected="false">Comercial</button>
+    <button class="proy-filter" data-filter="interiorismo" role="tab" aria-selected="false">Interiorismo</button>
+    <button class="proy-filter" data-filter="reformas" role="tab" aria-selected="false">Reformas</button>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     GRID MASONRY
+════════════════════════════════════════════ -->
+<section class="proy-grid-wrap">
+  <div class="proy-masonry" id="proyMasonry">
+
+    <!-- 1 — Casa Palermo -->
+    <div class="proy-item" data-category="residencial">
+      <div class="proy-item-img-wrap" style="aspect-ratio: 4/3;">
+        <img
+          src="https://picsum.photos/seed/50/800/600"
+          alt="Casa Palermo — Residencial"
+          class="proy-item-img"
+          loading="lazy"
+        />
+        <div class="proy-item-overlay">
+          <span class="proy-overlay-cat">Residencial</span>
+          <h3 class="proy-overlay-title">Casa Palermo</h3>
+        </div>
+      </div>
+      <div class="proy-item-foot">
+        <div class="proy-item-meta">
+          <span class="proy-meta-year">2024</span>
+          <span class="proy-meta-sep">·</span>
+          <span class="proy-meta-cat">Residencial</span>
+        </div>
+        <h3 class="proy-item-title">Casa Palermo</h3>
+      </div>
+    </div>
+
+    <!-- 2 — Oficinas Nordelta -->
+    <div class="proy-item" data-category="comercial">
+      <div class="proy-item-img-wrap" style="aspect-ratio: 3/4;">
+        <img
+          src="https://picsum.photos/seed/51/600/800"
+          alt="Oficinas Nordelta — Comercial"
+          class="proy-item-img"
+          loading="lazy"
+        />
+        <div class="proy-item-overlay">
+          <span class="proy-overlay-cat">Comercial</span>
+          <h3 class="proy-overlay-title">Oficinas Nordelta</h3>
+        </div>
+      </div>
+      <div class="proy-item-foot">
+        <div class="proy-item-meta">
+          <span class="proy-meta-year">2023</span>
+          <span class="proy-meta-sep">·</span>
+          <span class="proy-meta-cat">Comercial</span>
+        </div>
+        <h3 class="proy-item-title">Oficinas Nordelta</h3>
+      </div>
+    </div>
+
+    <!-- 3 — Loft San Telmo -->
+    <div class="proy-item" data-category="interiorismo">
+      <div class="proy-item-img-wrap" style="aspect-ratio: 4/5;">
+        <img
+          src="https://picsum.photos/seed/52/640/800"
+          alt="Loft San Telmo — Interiorismo"
+          class="proy-item-img"
+          loading="lazy"
+        />
+        <div class="proy-item-overlay">
+          <span class="proy-overlay-cat">Interiorismo</span>
+          <h3 class="proy-overlay-title">Loft San Telmo</h3>
+        </div>
+      </div>
+      <div class="proy-item-foot">
+        <div class="proy-item-meta">
+          <span class="proy-meta-year">2024</span>
+          <span class="proy-meta-sep">·</span>
+          <span class="proy-meta-cat">Interiorismo</span>
+        </div>
+        <h3 class="proy-item-title">Loft San Telmo</h3>
+      </div>
+    </div>
+
+    <!-- 4 — Ampliación Villa Urquiza -->
+    <div class="proy-item" data-category="reformas">
+      <div class="proy-item-img-wrap" style="aspect-ratio: 4/3;">
+        <img
+          src="https://picsum.photos/seed/53/800/600"
+          alt="Ampliación Villa Urquiza — Reformas"
+          class="proy-item-img"
+          loading="lazy"
+        />
+        <div class="proy-item-overlay">
+          <span class="proy-overlay-cat">Reformas</span>
+          <h3 class="proy-overlay-title">Ampliación Villa Urquiza</h3>
+        </div>
+      </div>
+      <div class="proy-item-foot">
+        <div class="proy-item-meta">
+          <span class="proy-meta-year">2023</span>
+          <span class="proy-meta-sep">·</span>
+          <span class="proy-meta-cat">Reformas</span>
+        </div>
+        <h3 class="proy-item-title">Ampliación Villa Urquiza</h3>
+      </div>
+    </div>
+
+    <!-- 5 — Casa de Campo -->
+    <div class="proy-item" data-category="residencial">
+      <div class="proy-item-img-wrap" style="aspect-ratio: 3/4;">
+        <img
+          src="https://picsum.photos/seed/54/600/800"
+          alt="Casa de Campo — Residencial"
+          class="proy-item-img"
+          loading="lazy"
+        />
+        <div class="proy-item-overlay">
+          <span class="proy-overlay-cat">Residencial</span>
+          <h3 class="proy-overlay-title">Casa de Campo</h3>
+        </div>
+      </div>
+      <div class="proy-item-foot">
+        <div class="proy-item-meta">
+          <span class="proy-meta-year">2022</span>
+          <span class="proy-meta-sep">·</span>
+          <span class="proy-meta-cat">Residencial</span>
+        </div>
+        <h3 class="proy-item-title">Casa de Campo</h3>
+      </div>
+    </div>
+
+    <!-- 6 — Showroom Palermo -->
+    <div class="proy-item" data-category="comercial">
+      <div class="proy-item-img-wrap" style="aspect-ratio: 4/3;">
+        <img
+          src="https://picsum.photos/seed/55/800/600"
+          alt="Showroom Palermo — Comercial"
+          class="proy-item-img"
+          loading="lazy"
+        />
+        <div class="proy-item-overlay">
+          <span class="proy-overlay-cat">Comercial</span>
+          <h3 class="proy-overlay-title">Showroom Palermo</h3>
+        </div>
+      </div>
+      <div class="proy-item-foot">
+        <div class="proy-item-meta">
+          <span class="proy-meta-year">2024</span>
+          <span class="proy-meta-sep">·</span>
+          <span class="proy-meta-cat">Comercial</span>
+        </div>
+        <h3 class="proy-item-title">Showroom Palermo</h3>
+      </div>
+    </div>
+
+  </div><!-- /proy-masonry -->
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     CTA FINAL
+════════════════════════════════════════════ -->
+<section class="proy-cta">
+  <div class="proy-cta-inner">
+    <p class="proy-cta-eyebrow">¿Tenés una idea?</p>
+    <h2 class="proy-cta-title">¿Tenés un proyecto<br><em>en mente?</em></h2>
+    <p class="proy-cta-desc">
+      Contanos tu proyecto y lo analizamos juntos.<br>
+      Consulta inicial sin cargo.
+    </p>
+    <a href="index.html#contact" class="btn-proy-cta">Hablemos</a>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-logo">
+    <svg height="24" viewBox="0 0 80 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="6" y1="5" x2="6" y2="51" stroke="rgba(237,236,234,0.45)" stroke-width="5.5" stroke-linecap="butt"/>
+      <path d="M6 5 Q38 5 38 17 Q38 29 28 29 L6 29" stroke="rgba(237,236,234,0.45)" stroke-width="5.5" fill="none" stroke-linecap="butt" stroke-linejoin="miter"/>
+      <polygon points="20,28 26,28 42,52 36,52" fill="rgba(237,236,234,0.45)"/>
+      <line x1="46" y1="5" x2="76" y2="5" stroke="rgba(237,236,234,0.45)" stroke-width="5.5" stroke-linecap="butt"/>
+      <line x1="61" y1="5" x2="61" y2="51" stroke="rgba(237,236,234,0.45)" stroke-width="5.5" stroke-linecap="butt"/>
+    </svg>
+    <span class="footer-brand">RT Arquitectos</span>
+  </div>
+
+  <div class="footer-director">
+    <span class="footer-director-label">Fundador y Director</span>
+    <span class="footer-director-name">Ricardo Torrejón</span>
+  </div>
+
+  <p class="footer-copy">© 2026 ARQ. Ricardo Gabriel Torrejón</p>
+
+  <div class="footer-social">
+    <a href="https://instagram.com/rtestudioarq" target="_blank">Instagram</a>
+    <a href="https://wa.me/5491124508817" target="_blank">WhatsApp</a>
+  </div>
+</footer>
+
+
+<script src="script.js"></script>
+
+<script>
+/* ——— Filtro de proyectos ——— */
+(function () {
+  const filters  = document.querySelectorAll('.proy-filter');
+  const items    = document.querySelectorAll('.proy-item');
+
+  filters.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const cat = this.dataset.filter;
+
+      /* Estado activo del tab */
+      filters.forEach(function (b) {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      this.classList.add('active');
+      this.setAttribute('aria-selected', 'true');
+
+      /* Mostrar / ocultar con fade */
+      items.forEach(function (item) {
+        const match = cat === 'todos' || item.dataset.category === cat;
+        if (match) {
+          item.classList.remove('proy-hidden');
+          item.classList.add('proy-visible');
+        } else {
+          item.classList.remove('proy-visible');
+          item.classList.add('proy-hidden');
+        }
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
