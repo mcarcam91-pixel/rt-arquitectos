@@ -74,90 +74,35 @@
 
 
 <!-- ════════════════════════════════════════════
-     HERO
+     HERO — Animated Slider
 ════════════════════════════════════════════ -->
-<section id="hero">
+<section id="hero" class="slider">
 
-  <!-- Venas de mármol — fondo decorativo del hero -->
-  <svg class="hero-veins" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"
-       fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-
-    <!-- Venas doradas — visibles en dark y light -->
-    <!-- Vena principal: diagonal larga de esquina a esquina, 1.2px -->
-    <path class="vein-gold"
-      d="M -10 140 C 180 90, 420 210, 680 175 S 980 290, 1240 255 S 1400 310, 1460 285"
-      stroke="var(--gold)" stroke-width="1.2" />
-
-    <!-- Vena secundaria: diagonal media, 0.8px -->
-    <path class="vein-gold"
-      d="M 200 -15 C 320 110, 410 185, 560 230 S 800 360, 960 395 S 1140 455, 1300 530"
-      stroke="var(--gold)" stroke-width="0.8" />
-
-    <!-- Vena corta: cruza zona central, 0.6px -->
-    <path class="vein-gold"
-      d="M 560 -20 C 610 90, 635 165, 690 295 S 775 460, 835 615"
-      stroke="var(--gold)" stroke-width="0.6" />
-
-    <!-- Vena fina: sector derecho, 0.4px -->
-    <path class="vein-gold"
-      d="M 920 80 C 965 175, 995 260, 1030 395 S 1070 525, 1115 670"
-      stroke="var(--gold)" stroke-width="0.4" />
-
-    <!-- Vena baja: cruza parte inferior, 0.7px -->
-    <path class="vein-gold"
-      d="M -20 610 C 160 545, 370 580, 630 520 S 940 540, 1180 498 S 1390 470, 1460 510"
-      stroke="var(--gold)" stroke-width="0.7" />
-
-    <!-- Venas grises — efecto Calacatta (predominan en light mode) -->
-    <!-- Gris 1: diagonal vertical izquierda-centro, 0.7px -->
-    <path class="vein-grey"
-      d="M 310 -15 C 430 105, 490 210, 560 360 S 635 520, 690 710 S 730 820, 755 920"
-      stroke="#C8C4BC" stroke-width="0.7" />
-
-    <!-- Gris 2: sector derecho, 0.5px -->
-    <path class="vein-grey"
-      d="M 1060 -10 C 1108 125, 1128 215, 1168 360 S 1205 515, 1228 710"
-      stroke="#C8C4BC" stroke-width="0.5" />
-
-  </svg>
-
-  <div class="hero-left">
-    <p class="hero-eyebrow">ARQ. Ricardo Gabriel Torrejón</p>
-
-    <h1 class="hero-title">
-      Arquitectura,<br>
-      <em>Diseño &amp;</em><br>
-      Ejecución.
-    </h1>
-
-    <!-- Eslogan -->
-    <p class="hero-slogan">Del concepto a la obra.</p>
-
-    <p class="hero-desc">
-      Estudio con base en Avellaneda, Buenos Aires.
-      Proyectamos, dirigimos y ejecutamos obras con rigor técnico
-      y sensibilidad estética en cada etapa del proceso.
-    </p>
-
-    <div class="hero-actions">
-      <a href="#projects" class="btn btn-dark">Ver Obras</a>
-      <a href="https://wa.me/5491124508817?text=Hola%20Ricardo%2C%20me%20gustar%C3%ADa%20consultarte%20sobre%20un%20proyecto." target="_blank" class="hero-link">Escribinos por WhatsApp →</a>
+  <div class="slider__body">
+    <div class="slider__left">
+      <h2 class="slider__title" aria-live="polite"></h2>
+      <div class="slider__footer">
+        <div class="slider__info">
+          <p class="slider__description">RT ARQUITECTOS<br>ARQ. RICARDO TORREJÓN<br>AVELLANEDA, BS. AS.</p>
+          <div class="slider__cta">
+            <a href="#projects" class="btn btn-outline-light">Ver Obras</a>
+            <a href="https://wa.me/5491124508817?text=Hola%20Ricardo%2C%20me%20gustar%C3%ADa%20consultarte%20sobre%20un%20proyecto." target="_blank" class="hero-link-slider">WhatsApp →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slider__right">
+      <div class="slider__images"></div>
     </div>
   </div>
 
-  <div class="hero-right">
-    <!-- Logo grande — caja gris oscuro con RT blanco -->
-    <div class="hero-logo-dark">
-      <svg viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <line x1="12" y1="9" x2="12" y2="101" stroke="white" stroke-width="11" stroke-linecap="butt"/>
-        <path d="M12 9 Q80 9 80 31 Q80 53 58 53 L12 53" stroke="white" stroke-width="11" fill="none" stroke-linecap="butt" stroke-linejoin="miter"/>
-        <polygon points="38,52 50,52 86,102 74,102" fill="white"/>
-        <line x1="94" y1="9" x2="170" y2="9" stroke="white" stroke-width="11" stroke-linecap="butt"/>
-        <line x1="132" y1="9" x2="132" y2="101" stroke="white" stroke-width="11" stroke-linecap="butt"/>
-      </svg>
-      <span class="hero-logo-label">ARQUITECTOS ASOCIADOS &nbsp;·&nbsp; DISEÑO Y EJECUCIÓN</span>
-    </div>
-  </div>
+  <!-- Indicador de scroll hacia abajo -->
+  <a href="#about" class="hero-scroll-down" aria-label="Ver más">
+    <svg width="16" height="24" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="8" y1="0" x2="8" y2="20" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+      <polyline points="3,15 8,21 13,15" stroke="rgba(255,255,255,0.4)" stroke-width="1" fill="none"/>
+    </svg>
+  </a>
 
 </section>
 
@@ -558,6 +503,7 @@
 </footer>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

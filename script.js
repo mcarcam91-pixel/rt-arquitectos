@@ -2,7 +2,309 @@
    RT ARQUITECTOS — script.js
    ============================================= */
 
+/* ── HERO SLIDER ─────────────────────────────
+   Basado en el diseño animado de referencia.
+   Autoplay + click + teclado. Sin hijack de scroll.
+   ─────────────────────────────────────────── */
+
+const HERO_SLIDES = [
+  {
+    name:  'Diseño',
+    color: '#2A2420',
+    image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=900&q=80',
+  },
+  {
+    name:  'Espacio',
+    color: '#1C2028',
+    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=80',
+  },
+  {
+    name:  'Visión',
+    color: '#22201E',
+    image: 'https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?w=900&q=80',
+  },
+];
+
+const AUTOPLAY_DELAY = 4500;
+
+const throttle = (fn, limit) => {
+  let waiting = false;
+  return function (...args) {
+    if (!waiting) { fn.apply(this, args); waiting = true; setTimeout(() => { waiting = false; }, limit); }
+  };
+};
+
+const debounce = (fn, wait) => {
+  let t;
+  return function (...args) { clearTimeout(t); t = setTimeout(() => fn.apply(this, args), wait); };
+};
+
+class HeroSlider {
+  constructor() {
+    this.current     = 0;
+    this.animating   = false;
+    this.total       = HERO_SLIDES.length;
+    this.el          = document.querySelector('#hero.slider');
+    if (!this.el) return;
+    this.titleEl     = this.el.querySelector('.slider__title');
+    this.imagesEl    = this.el.querySelector('.slider__images');
+    this.slideEls    = [];
+    this.currentLine = null;
+    this.autoPlayId  = null;
+    this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    this.preload();
+    this.setTitle(HERO_SLIDES[0].name);
+    gsap.set(this.el, { backgroundColor: HERO_SLIDES[0].color });
+    this.buildCarousel();
+    this.buildCursor();
+    this.bind();
+    this.startAutoPlay();
+  }
+
+  preload() {
+    HERO_SLIDES.forEach(s => { new Image().src = s.image; });
+  }
+
+  mod(n) { return ((n % this.total) + this.total) % this.total; }
+
+  buildCursor() {
+    this.cursorEl = document.createElement('div');
+    this.cursorEl.className = 'slider__cursor';
+    this.cursorEl.textContent = '+';
+    this.cursorEl.setAttribute('aria-hidden', 'true');
+    this.el.appendChild(this.cursorEl);
+    gsap.set(this.cursorEl, { xPercent: -50, yPercent: -50, opacity: 0 });
+    this.cursorMoveX = gsap.quickTo(this.cursorEl, 'x', { duration: 0.5, ease: 'power3' });
+    this.cursorMoveY = gsap.quickTo(this.cursorEl, 'y', { duration: 0.5, ease: 'power3' });
+  }
+
+  startAutoPlay() {
+    this.stopAutoPlay();
+    this.autoPlayId = setInterval(() => { if (!this.animating) this.go('next'); }, AUTOPLAY_DELAY);
+  }
+
+  stopAutoPlay() {
+    if (this.autoPlayId) { clearInterval(this.autoPlayId); this.autoPlayId = null; }
+  }
+
+  setTitle(text) {
+    this.titleEl.innerHTML = '';
+    const line = document.createElement('div');
+    [...text].forEach(ch => {
+      const span = document.createElement('span');
+      span.textContent = ch === ' ' ? '\u00A0' : ch;
+      line.appendChild(span);
+    });
+    this.titleEl.appendChild(line);
+    this.currentLine = line;
+  }
+
+  animateTitle(newText, direction) {
+    const h   = this.titleEl.offsetHeight;
+    const dir = direction === 'next' ? 1 : -1;
+    const oldLine  = this.currentLine;
+    const oldChars = [...oldLine.querySelectorAll('span')];
+
+    this.titleEl.style.height = h + 'px';
+    oldLine.style.cssText = 'position:absolute;top:0;left:0;width:100%';
+
+    const newLine = document.createElement('div');
+    newLine.style.cssText = 'position:absolute;top:0;left:0;width:100%';
+    [...newText].forEach(ch => {
+      const span = document.createElement('span');
+      span.textContent = ch === ' ' ? '\u00A0' : ch;
+      newLine.appendChild(span);
+    });
+    this.titleEl.appendChild(newLine);
+
+    const newChars = [...newLine.querySelectorAll('span')];
+    gsap.set(newChars, { y: h * dir });
+
+    const duration = this.reducedMotion ? 0.01 : 1;
+    const stagger  = this.reducedMotion ? 0 : 0.04;
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        oldLine.remove();
+        newLine.style.cssText = '';
+        gsap.set(newChars, { clearProps: 'all' });
+        this.titleEl.style.height = '';
+        this.currentLine = newLine;
+      },
+    });
+
+    tl.to(oldChars, { y: -h * dir, stagger, duration, ease: 'expo.inOut' }, 0);
+    tl.to(newChars, { y: 0,        stagger, duration, ease: 'expo.inOut' }, 0);
+    return tl;
+  }
+
+  makeSlide(idx) {
+    const div = document.createElement('div');
+    div.className = 'slider__slide';
+    const img = document.createElement('img');
+    img.src    = HERO_SLIDES[idx].image;
+    img.alt    = HERO_SLIDES[idx].name;
+    img.width  = 900;
+    img.height = 640;
+    div.appendChild(img);
+    return div;
+  }
+
+  getSlideProps(step) {
+    const h = this.imagesEl.offsetHeight;
+    const positions = [
+      { x: -0.35, y: -0.95, rot: -30, s: 1.35, b: 16, o: 0   },
+      { x: -0.18, y: -0.50, rot: -15, s: 1.15, b:  8, o: 0.55 },
+      { x:  0,    y:  0,    rot:   0, s: 1,    b:  0, o: 1    },
+      { x: -0.06, y:  0.50, rot:  15, s: 0.75, b:  6, o: 0.55 },
+      { x: -0.12, y:  0.95, rot:  30, s: 0.55, b: 14, o: 0   },
+    ];
+    const idx = Math.max(0, Math.min(4, step + 2));
+    const p   = positions[idx];
+    return {
+      x: p.x * h, y: p.y * h,
+      rotation: p.rot, scale: p.s,
+      blur: p.b, opacity: p.o,
+      zIndex: Math.abs(step) === 0 ? 3 : Math.abs(step) === 1 ? 2 : 1,
+    };
+  }
+
+  positionSlide(slide, step) {
+    const p = this.getSlideProps(step);
+    gsap.set(slide, {
+      xPercent: -50, yPercent: -50,
+      x: p.x, y: p.y,
+      rotation: p.rotation, scale: p.scale,
+      opacity: p.opacity,
+      filter: 'blur(' + p.blur + 'px)',
+      zIndex: p.zIndex,
+    });
+  }
+
+  buildCarousel() {
+    if (!this.imagesEl || this.imagesEl.offsetHeight === 0) return;
+    this.imagesEl.innerHTML = '';
+    this.slideEls = [];
+    for (let step = -1; step <= 1; step++) {
+      const slide = this.makeSlide(this.mod(this.current + step));
+      this.imagesEl.appendChild(slide);
+      this.positionSlide(slide, step);
+      this.slideEls.push({ el: slide, step });
+    }
+  }
+
+  animateCarousel(direction) {
+    if (!this.imagesEl || this.imagesEl.offsetHeight === 0) return gsap.timeline();
+    const shift    = direction === 'next' ? -1 : 1;
+    const enterStep = direction === 'next' ? 2 : -2;
+    const newIdx   = direction === 'next' ? this.mod(this.current + 2) : this.mod(this.current - 2);
+
+    const newSlide = this.makeSlide(newIdx);
+    this.imagesEl.appendChild(newSlide);
+    this.positionSlide(newSlide, enterStep);
+    this.slideEls.push({ el: newSlide, step: enterStep });
+
+    this.slideEls.forEach(s => { s.step += shift; });
+
+    const duration = this.reducedMotion ? 0.01 : 1.2;
+    const tl = gsap.timeline({
+      onComplete: () => {
+        this.slideEls = this.slideEls.filter(s => {
+          if (Math.abs(s.step) >= 2) { s.el.remove(); return false; }
+          return true;
+        });
+      },
+    });
+
+    this.slideEls.forEach(s => {
+      const p = this.getSlideProps(s.step);
+      s.el.style.zIndex = p.zIndex;
+      tl.to(s.el, {
+        x: p.x, y: p.y,
+        rotation: p.rotation, scale: p.scale,
+        opacity: p.opacity,
+        filter: 'blur(' + p.blur + 'px)',
+        duration, ease: 'power3.inOut',
+      }, 0);
+    });
+
+    return tl;
+  }
+
+  go(direction) {
+    if (this.animating) return;
+    this.animating = true;
+    this.startAutoPlay();
+
+    const nextIdx = direction === 'next' ? this.mod(this.current + 1) : this.mod(this.current - 1);
+
+    const master = gsap.timeline({
+      onComplete: () => { this.current = nextIdx; this.animating = false; },
+    });
+
+    master.to(this.el, {
+      backgroundColor: HERO_SLIDES[nextIdx].color,
+      duration: this.reducedMotion ? 0.01 : 1.2,
+      ease: 'power2.inOut',
+    }, 0);
+
+    master.add(this.animateTitle(HERO_SLIDES[nextIdx].name, direction), 0);
+    master.add(this.animateCarousel(direction), 0);
+  }
+
+  bind() {
+    /* Click en hero = siguiente slide */
+    this.el.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return; // no interceptar links
+      this.go('next');
+    });
+
+    /* Teclado */
+    document.addEventListener('keydown', (e) => {
+      if (this.animating) return;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') this.go('next');
+      if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   this.go('prev');
+    });
+
+    /* Cursor personalizado */
+    this.el.addEventListener('mousemove', (e) => {
+      if (!this.cursorVisible) {
+        gsap.to(this.cursorEl, { opacity: 1, duration: 0.3 });
+        this.cursorVisible = true;
+      }
+      this.cursorMoveX(e.clientX);
+      this.cursorMoveY(e.clientY);
+    }, { passive: true });
+
+    this.el.addEventListener('mouseleave', () => {
+      gsap.to(this.cursorEl, { opacity: 0, duration: 0.3 });
+      this.cursorVisible = false;
+    });
+
+    /* Re-posicionar slides en resize */
+    window.addEventListener('resize', debounce(() => {
+      if (!this.animating && this.imagesEl.offsetHeight > 0) {
+        this.slideEls.forEach(s => this.positionSlide(s.el, s.step));
+      }
+    }, 300), { passive: true });
+
+    /* Pausar autoplay cuando la pestaña no está visible */
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        this.animating = false;
+        this.stopAutoPlay();
+      } else {
+        this.startAutoPlay();
+      }
+    });
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+
+  /* ── HERO SLIDER INIT ───────────────────── */
+  if (typeof gsap !== 'undefined') new HeroSlider();
 
   /* ── NAV SCROLL EFFECT ───────────────────── */
   const navbar = document.getElementById('navbar');
