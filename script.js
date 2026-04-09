@@ -10,17 +10,17 @@
 const HERO_SLIDES = [
   {
     name:  'Diseño',
-    color: '#2A2420',
+    color: '#1C2A39',
     image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=900&q=80',
   },
   {
     name:  'Espacio',
-    color: '#1C2028',
+    color: '#0F1A24',
     image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=80',
   },
   {
     name:  'Visión',
-    color: '#22201E',
+    color: '#3A4A5A',
     image: 'https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?w=900&q=80',
   },
 ];
@@ -455,16 +455,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.5 });
 
   counters.forEach(el => counterObserver.observe(el));
-
-  /* ── THEME TOGGLE ────────────────────────── */
-  const themeToggle = document.getElementById('themeToggle');
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme');
-      const next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('rt-theme', next);
-    });
-  }
 
 });
